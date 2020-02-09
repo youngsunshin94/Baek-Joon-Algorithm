@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		int a = sc.nextInt();
+		Stack<Integer> st = new Stack<>();
+		int m = 0;
+		StringBuilder str = new StringBuilder();
+		
+		for (int i = 0; i < a; i++) {
+			int x = sc.nextInt();
+
+			if (x > m) {
+				for (int j = m; j < x; j++) {
+					st.push(++m);
+					str.append("+\n");
+				}
+				st.pop();
+				str.append("-\n");
+			} else {
+				boolean found = false;
+				if (!st.empty()) {
+					int top = (Integer) st.peek();
+					st.pop();
+					str.append("-\n");
+
+					if (x == top) {
+						found = true;
+					}
+				}
+				if (!found) {
+					System.out.println("NO");
+                    return;
+				}
+			}
+		}
+        
+		System.out.println(str);
+	}
+}
