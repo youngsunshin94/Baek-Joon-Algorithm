@@ -1,0 +1,55 @@
+import java.util.ArrayDeque;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(System.in);
+
+		int a = sc.nextInt();
+		ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
+		
+		while(a-- > 0) {
+			String str = sc.next();
+			if(str.equals("push_front")) {
+				queue.offerFirst(Integer.parseInt(sc.next()));
+			
+			} else if(str.equals("push_back")) {
+				queue.offerLast(Integer.parseInt(sc.next()));
+			} else if( str.equals("pop_front")) {
+				if(queue.isEmpty()) {
+					System.out.println("-1");
+				} else {
+					System.out.println(queue.pollFirst());
+				}
+			} else if( str.equals("pop_back")) {
+				if(queue.isEmpty()) {
+					System.out.println("-1");
+				} else {
+					System.out.println(queue.pollLast());
+				}
+			} else if(str.equals("size")) {
+				System.out.println(queue.size());
+			} else if( str.equals("empty")) {
+				if(queue.isEmpty()) {
+					System.out.println("1");
+				} else {
+					System.out.println("0");
+				}
+			} else if(str.equals("front")) {
+				if(queue.isEmpty()) {
+					System.out.println("-1");
+				} else {
+					System.out.println(queue.peekFirst());
+				}
+			} else if( str.equals("back")) {
+				if(queue.isEmpty()) {
+					System.out.println("-1");
+				} else {
+					System.out.println(queue.peekLast());
+				}
+			}
+		}
+		
+	}
+}
