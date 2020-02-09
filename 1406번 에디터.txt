@@ -1,0 +1,49 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Stack;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		Stack left = new Stack();
+		Stack right = new Stack();
+
+		String str = br.readLine();
+
+		for (int i = 0; i < str.length(); i++) {
+			left.push(str.charAt(i));
+		}
+		
+		int a = Integer.parseInt(br.readLine());
+		for (int i = 0; i < a; i++) {
+			String b = br.readLine();
+			
+			if (b.equals("L")) {
+				if(!left.empty()) {
+					right.push(left.pop());
+				}
+				
+			} else if (b.equals("D")) {
+				if(!right.empty()) {
+					left.push(right.pop());
+				}
+			} else if (b.equals("B")) {
+				if(!left.empty()) {
+					left.pop();
+				}
+			} else if (b.startsWith("P")) {
+				left.push(b.charAt(2));
+			}
+		}
+		int length = left.size();
+		for(int i=0;i<length;i++) {
+			right.push(left.peek());
+			left.pop();
+		}
+		length = right.size();
+		for(int i=0;i<length;i++) {
+			System.out.print(right.pop());
+		}
+	}
+}
