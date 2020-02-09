@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Stack;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int a = Integer.parseInt(br.readLine());
+		int[] arr = new int[a];
+		int[] nge = new int[a];
+		int[] freq = new int[1000001];
+		String[] temp = br.readLine().split(" ");
+		for (int i = 0; i < a; i++) {
+			arr[i] = Integer.parseInt(temp[i]);
+			freq[arr[i]] += 1;
+		}
+
+		Stack<Integer> st = new Stack<>();
+		st.push(0);
+		for (int i = 1; i < a; i++) {
+			if (st.empty()) {
+				st.push(i);
+			}
+			while (!st.empty() && freq[arr[st.peek()]] < freq[arr[i]]) {
+				nge[st.pop()] = arr[i];
+			}
+			st.push(i);
+		}
+		while (!st.empty()) {
+			nge[st.pop()] = -1;
+		}
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		for (int i = 0; i < a; i++) {
+			bw.write(nge[i] + " ");
+		}
+		bw.write("\n");
+		bw.flush();
+	}
+}
