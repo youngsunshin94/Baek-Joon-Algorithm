@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static final int MAX = 1000000;
+
+	public static void main(String[] args) {
+
+		boolean[] check = new boolean[MAX + 1];
+		check[0] = check[1] = true;
+
+		for (int i = 2; i <= MAX; i++) {
+			if (check[i] == false) {
+				for (int j = i * 2; j <= MAX; j += i) {
+					check[j] = true;
+				}
+			}
+		}
+
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = sc.nextInt();
+			int count = 0;
+
+			for (int j = 2; j <= arr[i] / 2; j++) {
+				if (check[j] == false) {
+					if (check[arr[i] - j] == false)
+						count++;
+				}
+			}
+			System.out.println(count);
+		}
+	}
+}
