@@ -1,0 +1,74 @@
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int a = sc.nextInt();
+		char[][] cdy = new char[a][a];
+
+		for (int i = 0; i < a; i++) {
+			cdy[i] = sc.next().toCharArray();
+		}
+
+		int ans = 0;
+		for (int i = 0; i < a; i++) {
+			for (int j = 0; j < a; j++) {
+				if (j + 1 < a) {
+					char t = cdy[i][j];
+					cdy[i][j] = cdy[i][j + 1];
+					cdy[i][j + 1] = t;
+
+					int temp = check(cdy);
+					if (ans < temp)
+						ans = temp;
+					t = cdy[i][j];
+					cdy[i][j] = cdy[i][j + 1];
+					cdy[i][j + 1] = t;
+				}
+				if (i + 1 < a) {
+					char t = cdy[i][j];
+					cdy[i][j] = cdy[i + 1][j];
+					cdy[i + 1][j] = t;
+
+					int temp = check(cdy);
+					if (ans < temp)
+						ans = temp;
+					t = cdy[i][j];
+					cdy[i][j] = cdy[i + 1][j];
+					cdy[i + 1][j] = t;
+				}
+			}
+		}
+		System.out.println(ans);
+	}
+
+	private static int check(char[][] cdy) {
+		int n = cdy.length;
+		int ans = 1;
+
+		for (int i = 0; i < n; i++) {
+			int cnt = 1;
+			for (int j = 1; j < n; j++) {
+				if (cdy[i][j] == cdy[i][j - 1]) {
+					cnt += 1;
+				} else {
+					cnt = 1;
+				}
+				if (ans < cnt)
+					ans = cnt;
+			}
+			cnt = 1;
+			for (int j = 1; j < n; j++) {
+				if (cdy[j][i] == cdy[j - 1][i]) {
+					cnt += 1;
+				} else {
+					cnt = 1;
+				}
+				if (ans < cnt)
+					ans = cnt;
+			}
+		}
+		
+		return ans;
+	}
+}
